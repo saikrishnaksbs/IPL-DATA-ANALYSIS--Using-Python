@@ -48,7 +48,6 @@ def plot(players, runsgiven):
 
     aux.set_ylabel('Total runs')
     aux.set_title('Top 10 economical bowlers in the year 2015')
-    # ax.legend(title='Teams')
     plt.show()
 
 

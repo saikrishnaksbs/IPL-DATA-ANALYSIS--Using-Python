@@ -57,6 +57,7 @@ with open("deliveries.csv", 'r', encoding='utf-8') as file:
 
 players_and_runs = calculate(deliveries_data)
 print(players_and_runs)
+
 runs_per_player = transform(players_and_runs)
 
 plot(runs_per_player[0], runs_per_player[1])

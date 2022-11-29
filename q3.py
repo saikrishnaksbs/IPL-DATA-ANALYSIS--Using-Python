@@ -60,6 +60,8 @@ with open("matches.csv", 'r', encoding='utf-8') as file:
 
 umpire_with_nationality_finallist = calculate(match_data)
 print(umpire_with_nationality_finallist)
+
 players = list(umpire_with_nationality_finallist.keys())
 runs = list(umpire_with_nationality_finallist.values())
+
 plot(players, runs)

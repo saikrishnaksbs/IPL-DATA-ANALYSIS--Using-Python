@@ -50,6 +50,7 @@ with open("deliveries.csv", 'r', encoding='utf-8') as file:
 
 teamsandscore_list = calculate(match_data, deliveries_data)
 print(teamsandscore_list)
+
 teams_list = list(teamsandscore_list.keys())
 runs_list = list(teamsandscore_list.values())
 print(runs_list, teams_list)

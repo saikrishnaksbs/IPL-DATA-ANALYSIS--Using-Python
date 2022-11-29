@@ -55,6 +55,7 @@ with open("deliveries.csv", 'r', encoding='utf-8') as file:
 
 seasonsandmatches = calculate(match_data, deliveries_data)
 print(seasonsandmatches)
+
 players = list(seasonsandmatches.keys())
 runs = list(seasonsandmatches.values())
 plot(players, runs)
