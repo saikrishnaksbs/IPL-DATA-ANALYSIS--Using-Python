@@ -4,34 +4,22 @@ import matplotlib.pyplot as plt
 
 def calculate(matches, deliveries):
     '''function for calculating'''
-    match_data = []
-    deliveries_data = []
-    with open(matches, 'r', encoding='utf-8') as file:
-        match_reader = csv.DictReader(file)
 
-        for match in match_reader:
-            match_data.append(match)
-
-    with open(deliveries, 'r', encoding='utf-8') as file:
-        delivery_reader = csv.DictReader(file)
-        for delivery in delivery_reader:
-            deliveries_data.append((delivery))
-
-    runsperteam = []
+    runs_per_team = []
     matchids = []
-    for details in match_data:
+    for details in matches:
         if details['season'] == '2016':
             matchids.append(details['id'])
     print(matchids)
     teams = set()
-    for details in deliveries_data:
+    for details in deliveries:
         if details['match_id'] in matchids:
             teams.add(details['bowling_team'])
     teams = sorted(list(teams))
-    runsperteam = [0]*len(teams)
-    teams_extraruns = dict(zip(teams, runsperteam))
+    runs_per_team = [0]*len(teams)
+    teams_extraruns = dict(zip(teams, runs_per_team))
 
-    for details in deliveries_data:
+    for details in deliveries:
         if (details['bowling_team'] in teams_extraruns.keys()
                 and details['match_id'] in matchids):
             teams_extraruns[details['bowling_team']
@@ -51,7 +39,21 @@ def plot(teams, runsperteam):
     plt.show()
 
 
-seasonsandmatches = calculate("matches.csv", "deliveries.csv")
+match_data = []
+deliveries_data = []
+with open("matches.csv", 'r', encoding='utf-8') as file:
+    matche_reader = csv.DictReader(file)
+
+    for matches_data in matche_reader:
+        match_data.append(matches_data)
+
+with open("deliveries.csv", 'r', encoding='utf-8') as file:
+    deliveries_rerader = csv.DictReader(file)
+    for delivery_data in deliveries_rerader:
+        deliveries_data.append((delivery_data))
+
+
+seasonsandmatches = calculate(match_data, deliveries_data)
 print(seasonsandmatches)
 players = list(seasonsandmatches.keys())
 runs = list(seasonsandmatches.values())

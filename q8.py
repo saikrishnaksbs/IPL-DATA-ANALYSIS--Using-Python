@@ -4,26 +4,15 @@ import matplotlib.pyplot as plt
 
 def calculate(matches, deliveries):
     '''For calculating'''
-    match_data = []
-    deliveries_data = []
-    with open(matches, 'r', encoding='utf-8') as file:
-        matchreader = csv.DictReader(file)
 
-        for match in matchreader:
-            match_data.append(match)
-
-    with open(deliveries, 'r', encoding='utf-8') as file:
-        delivery_reader = csv.DictReader(file)
-        for delivery in delivery_reader:
-            deliveries_data.append((delivery))
     matchids = []
-    for match in match_data:
+    for match in matches:
         if match['season'] == '2015':
             matchids.append(match['id'])
 
     print(matchids)
     bowlerslist = set()
-    for delivery in deliveries_data:
+    for delivery in deliveries:
 
         if delivery['match_id'] in matchids:
             bowlerslist.add(delivery['bowler'])
@@ -63,7 +52,21 @@ def plot(players, runsgiven):
     plt.show()
 
 
-sorted_bowler_runs = calculate("matches.csv", "deliveries.csv")
+match_data = []
+deliveries_data = []
+with open("matches.csv", 'r', encoding='utf-8') as file:
+    matche_reader = csv.DictReader(file)
+
+    for matches_data in matche_reader:
+        match_data.append(matches_data)
+
+with open("deliveries.csv", 'r', encoding='utf-8') as file:
+    deliveries_rerader = csv.DictReader(file)
+    for delivery_data in deliveries_rerader:
+        deliveries_data.append((delivery_data))
+
+
+sorted_bowler_runs = calculate(match_data, deliveries_data)
 players_name = list(sorted_bowler_runs.keys())
 runs = list(sorted_bowler_runs.values())
 plot(players_name, runs)

@@ -2,35 +2,24 @@ import csv
 import matplotlib.pyplot as plt
 
 
-def calculate(matches, deliveries):
+def calculate(deliveries):
     '''A function for calculating'''
-
-    match_data = []
-    deliveries_data = []
-    with open(matches, 'r', encoding='utf-8') as file:
-        matche_reader = csv.DictReader(file)
-
-        for match in matche_reader:
-            match_data.append(match)
-
-    with open(deliveries, 'r', encoding='utf-8') as file:
-        deliveries = csv.DictReader(file)
-        for delivery in deliveries:
-            deliveries_data.append((delivery))
 
     topplayers = set()
 
-    for player in deliveries_data:
+    for player in deliveries:
         if player['batting_team'] == 'Royal Challengers Bangalore':
             topplayers.add(player['batsman'])
     topplayers = list(topplayers)
     runsscored = [0]*len(topplayers)
     each_players_and_runs = dict(zip(topplayers, runsscored))
-    for player in deliveries_data:
+
+    for player in deliveries:
         if player['batsman'] in each_players_and_runs.keys():
             each_players_and_runs[player['batsman']
                                   ] += int(player['batsman_runs'])
     print(each_players_and_runs)
+
     sorted_each_players_and_runs = {key: value for key, value in sorted(
         each_players_and_runs.items(), key=lambda item: item[1])}
     print(sorted_each_players_and_runs)
@@ -59,7 +48,14 @@ def plot(players, runs):
     plt.show()
 
 
-players_and_runs = calculate("matches.csv", "deliveries.csv")
+deliveries_data = []
+with open("deliveries.csv", 'r', encoding='utf-8') as file:
+    deliveries_rerader = csv.DictReader(file)
+    for delivery_data in deliveries_rerader:
+        deliveries_data.append((delivery_data))
+
+
+players_and_runs = calculate(deliveries_data)
 print(players_and_runs)
 runs_per_player = transform(players_and_runs)
 

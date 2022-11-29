@@ -1,21 +1,14 @@
+'''To import csv and matplotlib'''
 import csv
 import matplotlib.pyplot as plt
 
 
 def calculate(matches):
     '''for calculating'''
-    seasons = set()
-    teams = set()
-    match_data = []
-    with open(matches, 'r', encoding='utf-8') as file:
-        matches = csv.DictReader(file)
-
-        for match in matches:
-            match_data.append(match)
 
     seasons = set()
     teams = set()
-    for match in match_data:
+    for match in matches:
 
         seasons.add(match['season'])
         teams.add(match['team1'])
@@ -33,7 +26,7 @@ def calculate(matches):
         year_team_played[year] = teams_played.copy()
     print(year_team_played)
 
-    for match in match_data:
+    for match in matches:
 
         year_team_played[match['season']][match['team1']] += 1
         year_team_played[match['season']][match['team2']] += 1
@@ -63,7 +56,8 @@ def plot(teams, seasons):
     for k in range(2, 14):
 
         teams_to_consider = [teams[j] for j in range(0, k)]
-        valuesof_last_appended_team_ongraph = [sum(group) for group in zip(*teams_to_consider)]
+        valuesof_last_appended_team_ongraph = [
+            sum(group) for group in zip(*teams_to_consider)]
         teamstart.append(valuesof_last_appended_team_ongraph)
 
     print(teamstart)
@@ -83,7 +77,15 @@ def plot(teams, seasons):
     plt.show()
 
 
-seasons_and_teams_matches_played = calculate("matches.csv")
+match_data = []
+with open("matches.csv", 'r', encoding='utf-8') as file:
+    matche_reader = csv.DictReader(file)
+
+    for matches_data in matche_reader:
+        match_data.append(matches_data)
+
+
+seasons_and_teams_matches_played = calculate(match_data)
 seasons_and_teams_total = tranform(seasons_and_teams_matches_played[1])
 print(seasons_and_teams_total)
 plot(seasons_and_teams_total, seasons_and_teams_matches_played[0])
