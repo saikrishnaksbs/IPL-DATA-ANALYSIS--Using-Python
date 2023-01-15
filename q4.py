@@ -88,6 +88,5 @@ with open("matches.csv", 'r', encoding='utf-8') as file:
 seasons_and_teams_matches_played = calculate(match_data)
 
 seasons_and_teams_total = tranform(seasons_and_teams_matches_played[1])
-print(seasons_and_teams_total)
 
 plot(seasons_and_teams_total, seasons_and_teams_matches_played[0])

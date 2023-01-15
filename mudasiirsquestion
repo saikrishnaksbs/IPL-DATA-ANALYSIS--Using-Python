@@ -1,0 +1,32 @@
+import csv
+
+
+def calculate(deliveries):
+    '''To calculate'''
+
+    batsmanlist = set()
+
+    for delivery in deliveries:
+        batsmanlist.add(delivery['batsman'])
+
+    batsmanlist = list(batsmanlist)
+    batsmanlist_runs = dict.fromkeys(batsmanlist, 0)
+    mat_id=0
+    for delivery in deliveries:
+            mat_id=delivery['match_id']
+            extras_conceeded[delivery['batsman']] += int(delivery['batsman_runs'])
+
+    extras_conceeded = {key: value for key, value in sorted(
+        extras_conceeded.items(), key=lambda item: item[1])}
+
+    print(extras_conceeded)
+
+
+deliveries_data = []
+
+with open("deliveries.csv", 'r', encoding='utf-8') as file:
+    deliveries_rerader = csv.DictReader(file)
+    for delivery_data in deliveries_rerader:
+        deliveries_data.append((delivery_data))
+
+calculate(deliveries_data)
